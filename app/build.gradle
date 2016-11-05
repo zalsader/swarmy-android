@@ -25,4 +25,8 @@ dependencies {
     compile 'com.android.support:appcompat-v7:23.3.0'
     compile 'com.android.support:support-v4:23.3.0'
     compile 'com.android.support:recyclerview-v7:23.3.0'
+    debugCompile project(':blocklylib-core-debug')
+    releaseCompile project(':blocklylib-core-release')
+    debugCompile project(':blocklylib-vertical-debug')
+    releaseCompile project(':blocklylib-vertical-release')
 }
