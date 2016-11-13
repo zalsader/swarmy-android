@@ -57,7 +57,8 @@ public class MainActivity extends AbstractBlocklyActivity {
                 "default/math_blocks.json",
                 "default/text_blocks.json",
                 "default/variable_blocks.json",
-                "default/colour_blocks.json"
+                "default/colour_blocks.json",
+                "arduino/base.json"
         );
     }
 
