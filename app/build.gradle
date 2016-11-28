@@ -29,4 +29,6 @@ dependencies {
     releaseCompile project(':blocklylib-core-release')
     debugCompile project(':blocklylib-vertical-debug')
     releaseCompile project(':blocklylib-vertical-release')
+    compile 'io.particle:cloudsdk:0.3.4'
+    compile 'io.particle:devicesetup:0.3.6'
 }
