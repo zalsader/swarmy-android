@@ -1,1 +1,1 @@
-include ':app', ':blocklylib-core-debug', ':blocklylib-vertical-debug', ':blocklylib-vertical-release', ':blocklylib-core-release'
+include ':app', ':blocklylib-core-debug', ':blocklylib-vertical-debug', ':blocklylib-vertical-release', ':blocklylib-core-release', ':cloudsdk-debug', ':cloudsdk-release', ':devicesetup-debug', ':devicesetup-release'

@@ -1,6 +1,5 @@
 package com.swarmy.swarmy;
 
-import android.content.Context;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.os.Bundle;
@@ -11,7 +10,6 @@ import com.google.blockly.android.AbstractBlocklyActivity;
 import com.google.blockly.android.codegen.CodeGenerationRequest;
 
 import java.io.ByteArrayInputStream;
-import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
@@ -45,7 +43,7 @@ public class MainActivity extends AbstractBlocklyActivity {
                     Async.executeAsync(device, new Async.ApiWork<ParticleDevice, Boolean>() {
                         @Override
                         public Boolean callApi(ParticleDevice particleDevice) throws ParticleCloudException, IOException {
-                            particleDevice.flashBinaryFile(getAssets().open("firmware.bin"));
+                            particleDevice.flashCodeFile(new ByteArrayInputStream(generatedCode.getBytes(StandardCharsets.UTF_8)));
                             return null;
                         }
 

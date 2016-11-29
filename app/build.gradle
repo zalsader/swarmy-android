@@ -25,10 +25,23 @@ dependencies {
     compile 'com.android.support:appcompat-v7:23.3.0'
     compile 'com.android.support:support-v4:23.3.0'
     compile 'com.android.support:recyclerview-v7:23.3.0'
+    compile 'com.android.support:support-annotations:23.3.0'
+    compile 'com.google.code.findbugs:jsr305:3.0.1'
+    compile 'com.google.code.gson:gson:2.7'
+    compile 'com.squareup.okhttp:okhttp:2.7.5'
+    compile 'org.apache.commons:commons-lang3:3.3.2'
+    compile 'com.google.guava:guava:18.0'
+    compile 'com.squareup.phrase:phrase:1.0.3'
+    compile 'uk.co.chrisjenx:calligraphy:2.1.0'
+    compile 'com.squareup.okio:okio:1.9.0'
+    compile 'com.squareup.retrofit:retrofit:1.9.0'
+
     debugCompile project(':blocklylib-core-debug')
     releaseCompile project(':blocklylib-core-release')
     debugCompile project(':blocklylib-vertical-debug')
     releaseCompile project(':blocklylib-vertical-release')
-    compile 'io.particle:cloudsdk:0.3.4'
-    compile 'io.particle:devicesetup:0.3.6'
+    debugCompile project(':cloudsdk-debug')
+    releaseCompile project(':cloudsdk-release')
+    debugCompile project(':devicesetup-debug')
+    releaseCompile project(':devicesetup-release')
 }
