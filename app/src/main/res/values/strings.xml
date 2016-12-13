@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Swarmy</string>
+    <string name="title_activity_intro">Intro</string>
+    <string name="action_settings">Settings</string>
 </resources>

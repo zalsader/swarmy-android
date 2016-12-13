@@ -1,8 +1,11 @@
 package com.swarmy.swarmy;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -21,6 +24,8 @@ import io.particle.android.sdk.cloud.ParticleCloudSDK;
 import io.particle.android.sdk.cloud.ParticleDevice;
 import io.particle.android.sdk.cloud.SDKGlobals;
 import io.particle.android.sdk.devicesetup.ParticleDeviceSetupLibrary;
+import io.particle.android.sdk.devicesetup.SetupCompleteIntentBuilder;
+import io.particle.android.sdk.devicesetup.SetupResult;
 import io.particle.android.sdk.utils.Async;
 import io.particle.android.sdk.utils.Toaster;
 
@@ -68,30 +73,8 @@ public class MainActivity extends AbstractBlocklyActivity {
     private ParticleDevice device;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        ParticleCloudSDK.init(this.getApplicationContext());
-        if (!SDKGlobals.getAppDataStorage().getUserHasClaimedDevices()) {
-            ParticleDeviceSetupLibrary.init(this, MainActivity.class);
-            ParticleDeviceSetupLibrary.DeviceSetupCompleteReceiver receiver = new ParticleDeviceSetupLibrary.DeviceSetupCompleteReceiver() {
-
-                @Override
-                public void onSetupSuccess(String configuredDeviceId) {
-                    try {
-                        MainActivity.this.device = ParticleCloudSDK.getCloud().getDevice(configuredDeviceId);
-                    } catch (ParticleCloudException e) {
-                        Toaster.s(MainActivity.this, "Sorry, device setup failed.  (sad trombone)");
-                    }
-                }
-
-                @Override
-                public void onSetupFailure() {
-                    Toaster.s(MainActivity.this, "Sorry, device setup failed.  (sad trombone)");
-                }
-            };
-            receiver.register(this);
-            ParticleDeviceSetupLibrary.startDeviceSetup(this);
-            receiver.unregister(this);
-        }
         super.onCreate(savedInstanceState);
+        ParticleCloudSDK.init(this.getApplicationContext());
         Async.executeAsync(ParticleCloudSDK.getCloud(), new Async.ApiWork<ParticleCloud, ParticleDevice>() {
             @Override
             public ParticleDevice callApi(ParticleCloud particleCloud) throws ParticleCloudException, IOException {
