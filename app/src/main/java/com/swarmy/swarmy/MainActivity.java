@@ -31,6 +31,8 @@ import io.particle.android.sdk.utils.Toaster;
 
 public class MainActivity extends AbstractBlocklyActivity {
     private static final String TAG = "MainActivity";
+    public static final String ARG_DEVICE = "ARG_DEVICE";
+    private static final String STATE_DEVICE = "STATE_DEVICE";
 
     private static final List<String> ARDUINO_GENERATORS = Arrays.asList(
     );
@@ -74,27 +76,22 @@ public class MainActivity extends AbstractBlocklyActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (savedInstanceState != null) {
+            device = savedInstanceState.getParcelable(STATE_DEVICE);
+        } else {
+            device = getIntent().getParcelableExtra(ARG_DEVICE);
+        }
         ParticleCloudSDK.init(this.getApplicationContext());
-        Async.executeAsync(ParticleCloudSDK.getCloud(), new Async.ApiWork<ParticleCloud, ParticleDevice>() {
-            @Override
-            public ParticleDevice callApi(ParticleCloud particleCloud) throws ParticleCloudException, IOException {
-                List<ParticleDevice> devices = ParticleCloudSDK.getCloud().getDevices();
-                if (!devices.isEmpty()) {
-                    return devices.get(0);
-                }
-                return null;
-            }
+    }
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putParcelable(STATE_DEVICE, device);
+    }
 
-            @Override
-            public void onSuccess(ParticleDevice particleDevice) {
-                device = particleDevice;
-            }
-
-            @Override
-            public void onFailure(ParticleCloudException exception) {
-
-            }
-        });
+    public static Intent buildIntent(Context ctx, ParticleDevice device) {
+        return new Intent(ctx, MainActivity.class)
+                .putExtra(MainActivity.ARG_DEVICE, device);
     }
 
     @NonNull

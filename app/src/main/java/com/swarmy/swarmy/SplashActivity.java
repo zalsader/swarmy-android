@@ -26,7 +26,7 @@ public class SplashActivity extends BaseActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ParticleCloudSDK.init(this);
-        ParticleDeviceSetupLibrary.init(this.getApplicationContext(), MainActivity.class);
+        ParticleDeviceSetupLibrary.init(this.getApplicationContext(), DeviceListActivity.class);
         onShowingSplashComplete();
     }
 

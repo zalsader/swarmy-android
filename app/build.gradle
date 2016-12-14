@@ -22,9 +22,25 @@ android {
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     testCompile 'junit:junit:4.12'
-    compile 'com.android.support:appcompat-v7:24.2.0'
+    compile ('com.android.support:appcompat-v7:24.2.0') {
+        force = true
+    }
     compile 'com.android.support:support-v4:24.2.0'
     compile 'com.android.support:recyclerview-v7:24.2.0'
+    compile 'com.tumblr:bookends:1.0.0'
+    compile 'com.getbase:floatingactionbutton:1.10.0'
+    compile('com.f2prateek.bundler:bundler:1.1.2') {
+        exclude module: 'support-v4'
+    }
+    compile 'com.getbase:floatingactionbutton:1.10.1'
+    compile 'commons-io:commons-io:2.4'
+    compile 'com.google.guava:guava:18.0'
+    compile 'com.tumblr:bookends:1.0.0'
+    compile 'com.squareup.okio:okio:1.6.0'
+    compile 'com.squareup.phrase:phrase:1.0.3'
+    compile 'org.apache.commons:commons-collections4:4.1'
+    compile 'org.apache.commons:commons-lang3:3.3.2'
+    compile 'uk.co.chrisjenx:calligraphy:2.1.0'
 
     debugCompile project(':blocklylib-core-debug')
     releaseCompile project(':blocklylib-core-release')
