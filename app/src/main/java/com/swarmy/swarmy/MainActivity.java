@@ -35,6 +35,7 @@ public class MainActivity extends AbstractBlocklyActivity {
     private static final String STATE_DEVICE = "STATE_DEVICE";
 
     private static final List<String> ARDUINO_GENERATORS = Arrays.asList(
+            "swarmy/generators/io.js"
     );
 
     private final Handler mHandler = new Handler();
@@ -97,7 +98,7 @@ public class MainActivity extends AbstractBlocklyActivity {
     @NonNull
     @Override
     protected String getToolboxContentsXmlPath() {
-        return "default/toolbox.xml";
+        return "swarmy/toolbox_full.xml";
     }
 
     @NonNull
@@ -111,7 +112,8 @@ public class MainActivity extends AbstractBlocklyActivity {
                 "default/text_blocks.json",
                 "default/variable_blocks.json",
                 "default/colour_blocks.json",
-                "arduino/base.json"
+                "arduino/base.json",
+                "swarmy/io.json"
         );
     }
 
