@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -15,24 +14,19 @@ import com.google.blockly.android.codegen.CodeGenerationRequest;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import io.particle.android.sdk.cloud.ParticleCloud;
 import io.particle.android.sdk.cloud.ParticleCloudException;
 import io.particle.android.sdk.cloud.ParticleCloudSDK;
 import io.particle.android.sdk.cloud.ParticleDevice;
-import io.particle.android.sdk.cloud.SDKGlobals;
-import io.particle.android.sdk.devicesetup.ParticleDeviceSetupLibrary;
-import io.particle.android.sdk.devicesetup.SetupCompleteIntentBuilder;
-import io.particle.android.sdk.devicesetup.SetupResult;
 import io.particle.android.sdk.utils.Async;
-import io.particle.android.sdk.utils.Toaster;
 
-public class MainActivity extends AbstractBlocklyActivity {
-    private static final String TAG = "MainActivity";
-    public static final String ARG_DEVICE = "ARG_DEVICE";
-    private static final String STATE_DEVICE = "STATE_DEVICE";
+public class AllDevicesActivity extends AbstractBlocklyActivity {
+    private static final String TAG = "AllDevicesActivity";
+    public static final String ARG_DEVICES = "ARG_DEVICES";
+    private static final String STATE_DEVICES = "STATE_DEVICES";
 
     private static final List<String> ARDUINO_GENERATORS = Arrays.asList(
             "swarmy/generators/io.js"
@@ -48,23 +42,25 @@ public class MainActivity extends AbstractBlocklyActivity {
                     Log.i(TAG, "generatedCode:\n" + generatedCode);
                     Toast.makeText(getApplicationContext(), generatedCode,
                             Toast.LENGTH_LONG).show();
-                    Async.executeAsync(device, new Async.ApiWork<ParticleDevice, Boolean>() {
-                        @Override
-                        public Boolean callApi(ParticleDevice particleDevice) throws ParticleCloudException, IOException {
-                            particleDevice.flashCodeFile(new ByteArrayInputStream(generatedCode.getBytes(StandardCharsets.UTF_8)));
-                            return null;
-                        }
+                    for (final ParticleDevice device : devices) {
+                        Async.executeAsync(device, new Async.ApiWork<ParticleDevice, Boolean>() {
+                            @Override
+                            public Boolean callApi(ParticleDevice particleDevice) throws ParticleCloudException, IOException {
+                                particleDevice.flashCodeFile(new ByteArrayInputStream(generatedCode.getBytes(StandardCharsets.UTF_8)));
+                                return null;
+                            }
 
-                        @Override
-                        public void onSuccess(Boolean aBoolean) {
+                            @Override
+                            public void onSuccess(Boolean aBoolean) {
+                                Log.i(TAG, "Code successfully written to device:" + device);
+                            }
 
-                        }
-
-                        @Override
-                        public void onFailure(ParticleCloudException exception) {
-                            Log.i(TAG, "generatedCode:\n" + generatedCode);
-                        }
-                    });
+                            @Override
+                            public void onFailure(ParticleCloudException exception) {
+                                Log.i(TAG, "Error writing to device:" + device);
+                            }
+                        });
+                    }
                     mHandler.post(new Runnable() {
                         @Override
                         public void run() {
@@ -73,32 +69,32 @@ public class MainActivity extends AbstractBlocklyActivity {
                 }
             };
 
-    private ParticleDevice device;
+    private ArrayList<ParticleDevice> devices;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (savedInstanceState != null) {
-            device = savedInstanceState.getParcelable(STATE_DEVICE);
+            devices = savedInstanceState.getParcelableArrayList(STATE_DEVICES);
         } else {
-            device = getIntent().getParcelableExtra(ARG_DEVICE);
+            devices = getIntent().getParcelableArrayListExtra(ARG_DEVICES);
         }
         ParticleCloudSDK.init(this.getApplicationContext());
     }
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putParcelable(STATE_DEVICE, device);
+        outState.putParcelableArrayList(STATE_DEVICES, devices);
     }
 
-    public static Intent buildIntent(Context ctx, ParticleDevice device) {
-        return new Intent(ctx, MainActivity.class)
-                .putExtra(MainActivity.ARG_DEVICE, device);
+    public static Intent buildIntent(Context ctx, ArrayList<ParticleDevice> devices) {
+        return new Intent(ctx, AllDevicesActivity.class)
+                .putParcelableArrayListExtra(AllDevicesActivity.ARG_DEVICES, devices);
     }
 
     @NonNull
     @Override
     protected String getToolboxContentsXmlPath() {
-        return "swarmy/toolbox_full.xml";
+        return "swarmy/toolbox_all_devices.xml";
     }
 
     @NonNull

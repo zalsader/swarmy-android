@@ -2,8 +2,10 @@ package com.swarmy.swarmy;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.app.Activity;
 import android.view.View;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import io.particle.android.sdk.accountsetup.LoginActivity;
 import io.particle.android.sdk.cloud.ParticleCloud;
@@ -52,7 +54,12 @@ public class DeviceListActivity extends BaseActivity implements DeviceListFragme
     //region DeviceListFragment.Callbacks
     @Override
     public void onDeviceSelected(ParticleDevice device) {
-        startActivity(MainActivity.buildIntent(this, device));
+        startActivity(DeviceActivity.buildIntent(this, device));
+    }
+
+    @Override
+    public void onDeviceSelected(ArrayList<ParticleDevice> devices) {
+        startActivity(AllDevicesActivity.buildIntent(this, devices));
     }
     //endregion
 }

@@ -9,7 +9,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:windowSoftInputMode="stateHidden|adjustPan">
-        <activity android:name=".MainActivity"></activity>
+        <activity android:name=".DeviceActivity" />
         <activity
             android:name="io.particle.android.sdk.devicesetup.ui.DiscoverDeviceActivity"
             android:label="@string/title_activity_discover_device"
@@ -94,7 +94,9 @@
             android:name=".DeviceListActivity"
             android:label="@string/title_activity_device_list"
             android:screenOrientation="portrait"
-            android:theme="@style/ParticleSetupTheme.NoActionBar.TranslucentSystemBars" />/>
+            android:theme="@style/ParticleSetupTheme.NoActionBar.TranslucentSystemBars" />
+        />
+        <activity android:name=".AllDevicesActivity"></activity>
     </application>
 
 </manifest>

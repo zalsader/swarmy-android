@@ -61,6 +61,8 @@ public class DeviceListFragment extends Fragment
 
     public interface Callbacks {
         void onDeviceSelected(ParticleDevice device);
+
+        void onDeviceSelected(ArrayList<ParticleDevice> devices);
     }
 
 
@@ -70,6 +72,11 @@ public class DeviceListFragment extends Fragment
     private static final Callbacks dummyCallbacks = new Callbacks() {
         @Override
         public void onDeviceSelected(ParticleDevice device) {
+            // no-op
+        }
+
+        @Override
+        public void onDeviceSelected(ArrayList<ParticleDevice> devices) {
             // no-op
         }
     };
@@ -229,6 +236,11 @@ public class DeviceListFragment extends Fragment
             return;
         }
 
+        if (adapter.isAllDevicesItem(position)) {
+            callbacks.onDeviceSelected(adapter.getConnectedDevices());
+            return;
+        }
+
         // Notify the active callbacks interface (the activity, if the
         // fragment is attached to one) that an item has been selected.
         final ParticleDevice device = adapter.getItem(position);
@@ -299,7 +311,8 @@ public class DeviceListFragment extends Fragment
         }
 
 
-        private final List<ParticleDevice> devices = list();
+        private final ArrayList<ParticleDevice> devices = new ArrayList<>();
+        private final ArrayList<ParticleDevice> connectedDevices = new ArrayList<>();
         private final FragmentActivity activity;
         private Drawable defaultBackground;
 
@@ -317,8 +330,6 @@ public class DeviceListFragment extends Fragment
 
         @Override
         public void onBindViewHolder(ViewHolder holder, int position) {
-            final ParticleDevice device = devices.get(position);
-
             if (defaultBackground == null) {
                 defaultBackground = holder.topLevel.getBackground();
             }
@@ -326,13 +337,21 @@ public class DeviceListFragment extends Fragment
             if (position % 2 == 0) {
                 holder.topLevel.setBackgroundResource(R.color.shaded_background);
             } else {
-                if (Build.VERSION.SDK_INT >= 16) {
-                    holder.topLevel.setBackground(defaultBackground);
-                } else {
-                    holder.topLevel.setBackgroundDrawable(defaultBackground);
-                }
+                holder.topLevel.setBackground(defaultBackground);
             }
-            holder.modelName.setText("Photon");
+            if (isAllDevicesItem(position)) {
+                holder.modelName.setText("");
+                holder.productImage.setImageResource(R.drawable.swarmy_vertical_logo);
+                holder.statusTextWithIcon.setText("Online");
+                holder.statusTextWithIcon.setCompoundDrawablesWithIntrinsicBounds(
+                        0, 0, R.drawable.online_dot, 0);
+                holder.productId.setText("");
+                holder.deviceName.setText("All Online Devices");
+                holder.overflowMenuIcon.setVisibility(View.INVISIBLE);
+                return;
+            }
+            final ParticleDevice device = devices.get(position);
+            holder.modelName.setText("Swarmy Robot");
             holder.productImage.setImageResource(R.drawable.photon_vector_small);
 
             Pair<String, Integer> statusTextAndColoredDot = getStatusTextAndColoredDot(device);
@@ -359,21 +378,42 @@ public class DeviceListFragment extends Fragment
 
         @Override
         public int getItemCount() {
-            return devices.size();
+            if (connectedDevices.size() > 1) {
+                return devices.size() + 1;
+            } else {
+                return devices.size();
+            }
         }
 
         void clear() {
             devices.clear();
+            connectedDevices.clear();
             notifyDataSetChanged();
         }
 
         void addAll(List<ParticleDevice> toAdd) {
             devices.addAll(toAdd);
+            for (ParticleDevice device : devices) {
+                if (device.isConnected()) {
+                    connectedDevices.add(device);
+                }
+            }
             notifyDataSetChanged();
         }
 
         ParticleDevice getItem(int position) {
             return devices.get(position);
+        }
+
+        boolean isAllDevicesItem(int position) {
+            if (position >= devices.size() && connectedDevices.size() > 1) {
+                return true;
+            }
+            return false;
+        }
+
+        ArrayList<ParticleDevice> getConnectedDevices() {
+            return connectedDevices;
         }
 
         private void showMenu(View v, final ParticleDevice device) {
