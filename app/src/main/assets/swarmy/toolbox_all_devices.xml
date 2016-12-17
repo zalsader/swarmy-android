@@ -16,6 +16,9 @@
 <toolbox>
     <category name="Swarmy" colour="60">
         <block type="swarmy_io_led"/>
+        <block type="swarmy_io_move"/>
+        <block type="swarmy_io_turn"/>
+        <block type="swarmy_io_stop"/>
     </category>
     <category name="Logic" colour="210">
         <block type="controls_if"></block>

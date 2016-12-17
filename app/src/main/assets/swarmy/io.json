@@ -1,25 +1,123 @@
-[{
-  "type": "swarmy_io_led",
-  "message0": "Turn LED %1",
-  "args0": [
-    {
-      "type": "field_dropdown",
-      "name": "STAT",
-      "options": [
-        [
-          "On",
-          "HIGH"
-        ],
-        [
-          "Off",
-          "LOW"
+[
+  {
+    "type": "swarmy_io_led",
+    "message0": "Turn Light %1",
+    "args0": [
+      {
+        "type": "field_dropdown",
+        "name": "STAT",
+        "options": [
+          [
+            "on",
+            "HIGH"
+          ],
+          [
+            "off",
+            "LOW"
+          ]
         ]
-      ]
-    }
-  ],
-  "previousStatement": null,
-  "nextStatement": null,
-  "colour": 60,
-  "tooltip": "",
-  "helpUrl": "http://www.example.com/"
-}]
+      }
+    ],
+    "previousStatement": null,
+    "nextStatement": null,
+    "colour": 60,
+    "tooltip": "",
+    "helpUrl": ""
+  },
+  {
+    "type": "swarmy_io_move_all",
+    "message0": "%1",
+    "args0": [
+      {
+        "type": "field_dropdown",
+        "name": "DIRECTION",
+        "options": [
+          [
+            "Move forward",
+            "FORWARD"
+          ],
+          [
+            "Move backward",
+            "BACKWARD"
+          ],
+          [
+            "Turn left",
+            "LEFT"
+          ],
+          [
+            "Turn right",
+            "RIGHT"
+          ],
+          [
+            "Stop",
+            "STOP"
+          ]
+        ]
+      }
+    ],
+    "previousStatement": null,
+    "nextStatement": null,
+    "colour": 60,
+    "tooltip": "",
+    "helpUrl": ""
+  },
+  {
+    "type": "swarmy_io_move",
+    "message0": "Move %1",
+    "args0": [
+      {
+        "type": "field_dropdown",
+        "name": "DIRECTION",
+        "options": [
+          [
+            "forward",
+            "FORWARD"
+          ],
+          [
+            "backward",
+            "BACKWARD"
+          ]
+        ]
+      }
+    ],
+    "previousStatement": null,
+    "nextStatement": null,
+    "colour": 60,
+    "tooltip": "",
+    "helpUrl": ""
+  },
+  {
+    "type": "swarmy_io_turn",
+    "message0": "Turn %1",
+    "args0": [
+      {
+        "type": "field_dropdown",
+        "name": "DIRECTION",
+        "options": [
+          [
+            "left",
+            "LEFT"
+          ],
+          [
+            "right",
+            "RIGHT"
+          ]
+        ]
+      }
+    ],
+    "previousStatement": null,
+    "nextStatement": null,
+    "colour": 60,
+    "tooltip": "",
+    "helpUrl": ""
+  },
+  {
+    "type": "swarmy_io_stop",
+    "message0": "Stop",
+    "previousStatement": null,
+    "nextStatement": null,
+    "colour": 60,
+    "tooltip": "",
+    "helpUrl": ""
+  }
+]
