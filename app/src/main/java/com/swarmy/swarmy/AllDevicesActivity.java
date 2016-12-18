@@ -11,12 +11,16 @@ import android.widget.Toast;
 import com.google.blockly.android.AbstractBlocklyActivity;
 import com.google.blockly.android.codegen.CodeGenerationRequest;
 
+import org.apache.commons.lang3.text.StrSubstitutor;
+
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import io.particle.android.sdk.cloud.ParticleCloudException;
 import io.particle.android.sdk.cloud.ParticleCloudSDK;
@@ -44,10 +48,14 @@ public class AllDevicesActivity extends AbstractBlocklyActivity {
                     Toast.makeText(getApplicationContext(), generatedCode,
                             Toast.LENGTH_LONG).show();
                     for (final ParticleDevice device : devices) {
+                        Map<String, String> valuesMap = new HashMap<>();
+                        valuesMap.put("myName", device.getName());
+                        StrSubstitutor sub = new StrSubstitutor(valuesMap);
+                        final String resolvedCode = sub.replace(generatedCode);
                         Async.executeAsync(device, new Async.ApiWork<ParticleDevice, Boolean>() {
                             @Override
                             public Boolean callApi(ParticleDevice particleDevice) throws ParticleCloudException, IOException {
-                                particleDevice.flashCodeFile(new ByteArrayInputStream(generatedCode.getBytes(StandardCharsets.UTF_8)));
+                                particleDevice.flashCodeFile(new ByteArrayInputStream(resolvedCode.getBytes(StandardCharsets.UTF_8)));
                                 return null;
                             }
 

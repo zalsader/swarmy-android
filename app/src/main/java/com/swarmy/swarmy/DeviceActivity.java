@@ -11,11 +11,15 @@ import android.widget.Toast;
 import com.google.blockly.android.AbstractBlocklyActivity;
 import com.google.blockly.android.codegen.CodeGenerationRequest;
 
+import org.apache.commons.lang3.text.StrSubstitutor;
+
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import io.particle.android.sdk.cloud.ParticleCloudException;
 import io.particle.android.sdk.cloud.ParticleCloudSDK;
@@ -37,26 +41,29 @@ public class DeviceActivity extends AbstractBlocklyActivity {
             new CodeGenerationRequest.CodeGeneratorCallback() {
                 @Override
                 public void onFinishCodeGeneration(final String generatedCode) {
-
-                    // Sample callback.
                     Log.i(TAG, "generatedCode:\n" + generatedCode);
-                    Toast.makeText(getApplicationContext(), generatedCode,
+                    Map<String, String> valuesMap = new HashMap<>();
+                    valuesMap.put("myName", device.getName());
+                    StrSubstitutor sub = new StrSubstitutor(valuesMap);
+                    final String resolvedCode = sub.replace(generatedCode);
+                    Log.i(TAG, "resolvedCode:\n" + resolvedCode);
+                    Toast.makeText(getApplicationContext(), resolvedCode,
                             Toast.LENGTH_LONG).show();
                     Async.executeAsync(device, new Async.ApiWork<ParticleDevice, Boolean>() {
                         @Override
                         public Boolean callApi(ParticleDevice particleDevice) throws ParticleCloudException, IOException {
-                            particleDevice.flashCodeFile(new ByteArrayInputStream(generatedCode.getBytes(StandardCharsets.UTF_8)));
+                            particleDevice.flashCodeFile(new ByteArrayInputStream(resolvedCode.getBytes(StandardCharsets.UTF_8)));
                             return null;
                         }
 
                         @Override
                         public void onSuccess(Boolean aBoolean) {
-
+                            Log.i(TAG, "Code successfully written to device:" + device);
                         }
 
                         @Override
                         public void onFailure(ParticleCloudException exception) {
-                            Log.i(TAG, "generatedCode:\n" + generatedCode);
+                            Log.i(TAG, "Error writing to device:" + device);
                         }
                     });
                     mHandler.post(new Runnable() {
