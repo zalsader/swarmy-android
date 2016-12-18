@@ -1,0 +1,84 @@
+[
+  {
+    "type": "swarmy_events_wait",
+    "message0": "Wait",
+    "previousStatement": null,
+    "nextStatement": null,
+    "colour": 0,
+    "tooltip": "",
+    "helpUrl": ""
+  },
+  {
+    "type": "swarmy_events_go_on",
+    "message0": "Go on",
+    "previousStatement": null,
+    "nextStatement": null,
+    "colour": 0,
+    "tooltip": "",
+    "helpUrl": ""
+  },
+  {
+    "type": "swarmy_events_say",
+    "message0": "Say %1",
+    "args0": [
+      {
+        "type": "input_value",
+        "name": "SENTENCE",
+        "check": "String"
+      }
+    ],
+    "previousStatement": null,
+    "nextStatement": null,
+    "colour": 0,
+    "tooltip": "",
+    "helpUrl": "http://www.example.com/"
+  },
+  {
+    "type": "swarmy_events_said_sentence",
+    "message0": "Said Sentence",
+    "output": "String",
+    "colour": 0,
+    "tooltip": "",
+    "helpUrl": ""
+  },
+  {
+    "type": "swarmy_events_name",
+    "message0": "%1 Name",
+    "args0": [
+      {
+        "type": "field_dropdown",
+        "name": "SUBJECT",
+        "options": [
+          [
+            "speaker",
+            "SPEAKER"
+          ],
+          [
+            "my",
+            "MY"
+          ]
+        ]
+      }
+    ],
+    "output": "String",
+    "colour": 0,
+    "tooltip": "",
+    "helpUrl": ""
+  },
+  {
+    "type": "swarmy_events_listen",
+    "message0": "When someone speaks %1 %2",
+    "args0": [
+      {
+        "type": "input_dummy"
+      },
+      {
+        "type": "input_statement",
+        "name": "STACK"
+      }
+    ],
+    "colour": 0,
+    "tooltip": "",
+    "helpUrl": "http://www.example.com/"
+  }
+]

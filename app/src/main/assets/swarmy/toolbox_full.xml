@@ -20,6 +20,22 @@
         <block type="swarmy_io_turn"/>
         <block type="swarmy_io_stop"/>
     </category>
+    <category name="Events">
+        <block type="swarmy_events_wait"></block>
+        <block type="swarmy_events_go_on"></block>
+        <block type="swarmy_events_say">
+            <value name="SENTENCE">
+                <shadow type="text">
+                    <field name="TEXT"></field>
+                </shadow>
+            </value>
+        </block>
+        <block type="swarmy_events_said_sentence"></block>
+        <block type="swarmy_events_name">
+            <field name="SUBJECT">SPEAKER</field>
+        </block>
+        <block type="swarmy_events_listen"></block>
+    </category>
     <category name="Logic" colour="210">
         <block type="controls_if"></block>
         <block type="logic_compare"></block>

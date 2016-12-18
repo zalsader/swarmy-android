@@ -28,7 +28,8 @@ public class DeviceActivity extends AbstractBlocklyActivity {
     private static final String STATE_DEVICE = "STATE_DEVICE";
 
     private static final List<String> ARDUINO_GENERATORS = Arrays.asList(
-            "swarmy/generators/io.js"
+            "swarmy/generators/io.js",
+            "swarmy/generators/events.js"
     );
 
     private final Handler mHandler = new Handler();
@@ -106,7 +107,8 @@ public class DeviceActivity extends AbstractBlocklyActivity {
                 "default/variable_blocks.json",
                 "default/colour_blocks.json",
                 "arduino/base.json",
-                "swarmy/io.json"
+                "swarmy/io.json",
+                "swarmy/events.json"
         );
     }
 
