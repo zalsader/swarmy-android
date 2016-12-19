@@ -26,30 +26,30 @@
   },
   {
     "type": "swarmy_io_move_all",
-    "message0": "%1",
+    "message0": "Keep %1",
     "args0": [
       {
         "type": "field_dropdown",
         "name": "DIRECTION",
         "options": [
           [
-            "Move forward",
+            "moving forward",
             "FORWARD"
           ],
           [
-            "Move backward",
+            "moving backward",
             "BACKWARD"
           ],
           [
-            "Turn left",
+            "turning left",
             "LEFT"
           ],
           [
-            "Turn right",
+            "turning right",
             "RIGHT"
           ],
           [
-            "Stop",
+            "stopping",
             "STOP"
           ]
         ]
@@ -87,6 +87,36 @@
     "helpUrl": ""
   },
   {
+    "type": "swarmy_io_move_steps",
+    "message0": "Move %1 by %2 steps",
+    "args0": [
+      {
+        "type": "field_dropdown",
+        "name": "DIRECTION",
+        "options": [
+          [
+            "forward",
+            "FORWARD"
+          ],
+          [
+            "backward",
+            "BACKWARD"
+          ]
+        ]
+      },
+      {
+        "type": "input_value",
+        "name": "STEPS",
+        "check": "Number"
+      }
+    ],
+    "previousStatement": null,
+    "nextStatement": null,
+    "colour": 60,
+    "tooltip": "",
+    "helpUrl": ""
+  },
+  {
     "type": "swarmy_io_turn",
     "message0": "Turn %1",
     "args0": [
@@ -110,6 +140,36 @@
     "colour": 60,
     "tooltip": "",
     "helpUrl": ""
+  },
+  {
+    "type": "swarmy_io_turn_steps",
+    "message0": "Turn %1 by %2 degrees",
+    "args0": [
+      {
+        "type": "field_dropdown",
+        "name": "DIRECTION",
+        "options": [
+          [
+            "left",
+            "LEFT"
+          ],
+          [
+            "right",
+            "RIGHT"
+          ]
+        ]
+      },
+      {
+        "type": "input_value",
+        "name": "STEPS",
+        "check": "Number"
+      }
+    ],
+    "previousStatement": null,
+    "nextStatement": null,
+    "colour": 60,
+    "tooltip": "",
+    "helpUrl": "http://www.example.com/"
   },
   {
     "type": "swarmy_io_stop",

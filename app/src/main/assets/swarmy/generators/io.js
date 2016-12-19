@@ -76,11 +76,29 @@ Blockly.Arduino.swarmy_io_move_all = function() {
         "}\n";
       code="stop();\n";
   }
+  var steps = Blockly.Arduino.valueToCode(this, 'STEPS', Blockly.Arduino.ORDER_ATOMIC) || null;
+  if (steps !== null) {
+    Blockly.Arduino.definitions_['define_stop'] = "void stop()\n"+
+        "{\n"+
+        "  digitalWrite("+FOR1+",LOW);\n"+
+        "  digitalWrite("+BAC1+",LOW);\n"+
+        "  digitalWrite("+FOR2+",LOW);\n"+
+        "  digitalWrite("+BAC2+",LOW);\n"+
+        "}\n";
+    var abs_steps = steps * 1000;
+    if (dropdown_direction === "RIGHT" || dropdown_direction === "LEFT") {
+      abs_steps = Math.round(abs_steps / 180);
+    }
+    code += "delay("+abs_steps+");\n"+
+        "stop();\n"
+  }
   return code;
 };
 
 Blockly.Arduino.swarmy_io_move = Blockly.Arduino.swarmy_io_move_all;
 Blockly.Arduino.swarmy_io_turn = Blockly.Arduino.swarmy_io_move_all;
+Blockly.Arduino.swarmy_io_move_steps = Blockly.Arduino.swarmy_io_move_all;
+Blockly.Arduino.swarmy_io_turn_steps = Blockly.Arduino.swarmy_io_move_all;
 Blockly.Arduino.swarmy_io_stop = Blockly.Arduino.swarmy_io_move_all;
 
 Blockly.Arduino['swarmy_io_sensor_event'] = function() {
