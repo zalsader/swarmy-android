@@ -65,13 +65,13 @@ Blockly.Arduino.swarmy_events_listen = function() {
   Blockly.Arduino.definitions_['define_my_name'] = 'String myName = "${myName}";\n';
   var code =  'void sayHandler'+ fnname +'(const char *event, const char *data) {\n' +
       '  String saidSentence = String(event).substring(4);\n' +
-      '  int endName = String(data).indexOf(\';\')' +
+      '  int endName = String(data).indexOf(\';\');\n' +
       '  String speakerName = String(data).substring(0, endName);\n' +
       '  String carriedData = String(data).substring(endName + 1);\n' +
-      '  if (speakerName != myName) {\n'
+      '  if (speakerName != myName) {\n' +
       branch + '}\n}\n';
   code = Blockly.Arduino.scrub_(this, code);
   Blockly.Arduino.definitions_['say_handler_' + fnname] = code;
-  Blockly.Arduino.setups_["setup_say_handler_" + fnname] = 'Particle.subscribe(String("say/") + ' + value_name + ', sayHandler ' + fnname + ', MY_DEVICES);\n';
+  Blockly.Arduino.setups_["setup_say_handler_" + fnname] = 'Particle.subscribe(String("say/") + ' + value_name + ', sayHandler' + fnname + ', MY_DEVICES);\n';
   return null;
 };

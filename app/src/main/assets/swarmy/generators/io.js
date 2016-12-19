@@ -5,12 +5,12 @@ Blockly.Arduino.swarmy_io_led = function() {
   return code;
 };
 
-var PWM1 = "D5";
-var PWM2 = "D0";
-var FOR1 = "D4";
-var BAC1 = "D3";
-var FOR2 = "D2";
-var BAC2 = "D1";
+var PWM1 = "D0";
+var PWM2 = "D5";
+var FOR1 = "D1";
+var BAC1 = "D2";
+var FOR2 = "D3";
+var BAC2 = "D4";
 
 Blockly.Arduino.swarmy_io_move_all = function() {
   var dropdown_direction = this.getFieldValue('DIRECTION') || "STOP";
@@ -48,20 +48,20 @@ Blockly.Arduino.swarmy_io_move_all = function() {
     case "RIGHT":
       Blockly.Arduino.definitions_['define_right'] = "void right()\n"+
         "{\n"+
-        "  digitalWrite("+FOR1+",LOW);\n"+
-        "  digitalWrite("+BAC1+",HIGH);\n"+
-        "  digitalWrite("+FOR2+",HIGH);\n"+
-        "  digitalWrite("+BAC2+",LOW);\n"+
+        "  digitalWrite("+FOR1+",HIGH);\n"+
+        "  digitalWrite("+BAC1+",LOW);\n"+
+        "  digitalWrite("+FOR2+",LOW);\n"+
+        "  digitalWrite("+BAC2+",HIGH);\n"+
         "}\n";
       code="right();\n";
       break;
     case "LEFT":
       Blockly.Arduino.definitions_['define_left'] = "void left()\n"+
         "{\n"+
-        "  digitalWrite("+FOR1+",HIGH);\n"+
-        "  digitalWrite("+BAC1+",LOW);\n"+
-        "  digitalWrite("+FOR2+",LOW);\n"+
-        "  digitalWrite("+BAC2+",HIGH);\n"+
+        "  digitalWrite("+FOR1+",LOW);\n"+
+        "  digitalWrite("+BAC1+",HIGH);\n"+
+        "  digitalWrite("+FOR2+",HIGH);\n"+
+        "  digitalWrite("+BAC2+",LOW);\n"+
         "}\n";
       code="left();\n";
       break;
