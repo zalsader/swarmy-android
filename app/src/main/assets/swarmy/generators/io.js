@@ -136,3 +136,14 @@ Blockly.Arduino['swarmy_io_sensor_read'] = function() {
     default:
   }
 };
+
+Blockly.Arduino.swarmy_io_laser = function() {
+  var dropdown_stat = this.getFieldValue('STAT');
+  Blockly.Arduino.setups_['setup_laser'] = "pinMode(A3, OUTPUT);\n"+
+   "  pinMode(A4, OUTPUT);\n"+
+   "  pinMode(A5, OUTPUT);\n"+
+   "  digitalWrite(A5, LOW);\n"+
+   "  digitalWrite(A4, HIGH);\n";
+  var code = 'digitalWrite(A3, ' + dropdown_stat + ');\n'
+  return code;
+};
