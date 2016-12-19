@@ -70,6 +70,7 @@ public class AllDevicesActivity extends AbstractBlocklyActivity {
                             }
                         });
                     }
+                    startActivity(ChatActivity.buildIntent(AllDevicesActivity.this));
                     mHandler.post(new Runnable() {
                         @Override
                         public void run() {

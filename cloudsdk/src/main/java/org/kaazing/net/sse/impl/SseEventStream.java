@@ -83,6 +83,7 @@ public class SseEventStream {
     private AtomicBoolean          reconnected = new AtomicBoolean(false);
     private HttpRequestHandler     sseHandler;
     private SseEventStreamListener listener;
+    private String lastEventName = MESSAGE;
 
 
     public SseEventStream(String sseLoc) throws IOException {
@@ -188,7 +189,6 @@ public class SseEventStream {
             messageBuffer = messageBuffer + message;
             String field = null;
             String value = null;
-            String name = MESSAGE;
             String data = "";
             immediateReconnect = false;
             while (!aborted && !errored) {
@@ -203,7 +203,8 @@ public class SseEventStream {
                         if (dataBuffer.charAt(dataBufferlength - 1) == '\n') {
                             dataBuffer.replace(dataBufferlength - 1, dataBufferlength, "");
                         }
-                        doMessage(name, dataBuffer.toString());
+                        doMessage(lastEventName, dataBuffer.toString());
+                        lastEventName = MESSAGE;
                         dataBuffer.setLength(0);
                     }
                 }
@@ -226,14 +227,14 @@ public class SseEventStream {
                 }
                 // process the field of completed event
                 if (field.equals("event")) {
-                    name = value;
+                    lastEventName = value;
                 } else if (field.equals("id")) {
                     this.lastEventId = value;
                 } else if (field.equals("retry")) {
                     retry = Integer.parseInt(value);
                 } else if (field.equals("data")) {
                     // deliver event if data is specified and non-empty, or name is specified and not "message"
-                    if (value != null || (name != null && name.length() > 0 && !MESSAGE.equals(name))) {
+                    if (value != null || (lastEventName != null && lastEventName.length() > 0 && !MESSAGE.equals(lastEventName))) {
                         dataBuffer.append(value).append("\n");
                     }
                 } else if (field.equals("location")) {

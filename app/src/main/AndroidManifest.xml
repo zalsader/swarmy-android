@@ -96,7 +96,8 @@
             android:screenOrientation="portrait"
             android:theme="@style/ParticleSetupTheme.NoActionBar.TranslucentSystemBars" />
         />
-        <activity android:name=".AllDevicesActivity"></activity>
+        <activity android:name=".AllDevicesActivity" />
+        <activity android:name=".ChatActivity"></activity>
     </application>
 
 </manifest>

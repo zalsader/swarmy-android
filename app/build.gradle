@@ -42,6 +42,7 @@ dependencies {
     compile 'org.apache.commons:commons-lang3:3.3.2'
     compile 'uk.co.chrisjenx:calligraphy:2.1.0'
     compile group:'org.apache.commons', name:'commons-lang3', version:'3.5'
+    compile 'me.himanshusoni.chatmessageview:chat-message-view:1.0.3'
 
     debugCompile project(':blocklylib-core-debug')
     releaseCompile project(':blocklylib-core-release')

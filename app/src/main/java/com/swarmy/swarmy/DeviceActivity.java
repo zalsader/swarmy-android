@@ -66,6 +66,7 @@ public class DeviceActivity extends AbstractBlocklyActivity {
                             Log.i(TAG, "Error writing to device:" + device);
                         }
                     });
+                    startActivity(ChatActivity.buildIntent(DeviceActivity.this));
                     mHandler.post(new Runnable() {
                         @Override
                         public void run() {
