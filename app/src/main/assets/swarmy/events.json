@@ -19,11 +19,16 @@
   },
   {
     "type": "swarmy_events_say",
-    "message0": "Say %1",
+    "message0": "Say %1 With data %2",
     "args0": [
       {
         "type": "input_value",
         "name": "SENTENCE",
+        "check": "String"
+      },
+      {
+        "type": "input_value",
+        "name": "DATA",
         "check": "String"
       }
     ],
@@ -36,6 +41,14 @@
   {
     "type": "swarmy_events_said_sentence",
     "message0": "Said Sentence",
+    "output": "String",
+    "colour": 0,
+    "tooltip": "",
+    "helpUrl": ""
+  },
+  {
+    "type": "swarmy_events_carried_data",
+    "message0": "Carried Data",
     "output": "String",
     "colour": 0,
     "tooltip": "",
@@ -67,10 +80,12 @@
   },
   {
     "type": "swarmy_events_listen",
-    "message0": "When someone speaks %1 %2",
+    "message0": "When anyone says %1 %2",
     "args0": [
       {
-        "type": "input_dummy"
+        "type": "input_value",
+        "name": "NAME",
+        "check": "String"
       },
       {
         "type": "input_statement",

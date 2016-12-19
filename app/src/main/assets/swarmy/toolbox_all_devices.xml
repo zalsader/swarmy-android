@@ -29,12 +29,24 @@
                     <field name="TEXT"></field>
                 </shadow>
             </value>
+            <value name="DATA">
+                <shadow type="text">
+                    <field name="TEXT"></field>
+                </shadow>
+            </value>
+        </block>
+        <block type="swarmy_events_listen">
+            <value name="NAME">
+                <shadow type="text">
+                    <field name="TEXT"></field>
+                </shadow>
+            </value>
         </block>
         <block type="swarmy_events_said_sentence"></block>
+        <block type="swarmy_events_carried_data"></block>
         <block type="swarmy_events_name">
             <field name="SUBJECT">SPEAKER</field>
         </block>
-        <block type="swarmy_events_listen"></block>
     </category>
     <category name="Logic" colour="210">
         <block type="controls_if"></block>
