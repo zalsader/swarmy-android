@@ -351,8 +351,8 @@ public class DeviceListFragment extends Fragment
                 return;
             }
             final ParticleDevice device = devices.get(position);
-            holder.modelName.setText("Swarmy Robot");
-            holder.productImage.setImageResource(R.drawable.photon_vector_small);
+            holder.modelName.setText(R.string.device_name);
+            holder.productImage.setImageResource(R.drawable.robot);
 
             Pair<String, Integer> statusTextAndColoredDot = getStatusTextAndColoredDot(device);
             holder.statusTextWithIcon.setText(statusTextAndColoredDot.first);
