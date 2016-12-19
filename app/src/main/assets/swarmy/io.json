@@ -119,5 +119,91 @@
     "colour": 60,
     "tooltip": "",
     "helpUrl": ""
+  },
+  {
+    "type": "swarmy_io_sensor_event",
+    "message0": "When %1 %2 %3",
+    "args0": [
+      {
+        "type": "field_dropdown",
+        "name": "ACTION",
+        "options": [
+          [
+            "a sound is heard",
+            "SOUND"
+          ],
+          [
+            "something moves nearby",
+            "MOVEMENT"
+          ],
+          [
+            "an obstacle is found",
+            "OBSTACLE"
+          ],
+          [
+            "we're on fire!",
+            "FIRE"
+          ],
+          [
+            "there's light",
+            "LIGHT"
+          ],
+          [
+            "there's darkness",
+            "DARKNESS"
+          ]
+        ]
+      },
+      {
+        "type": "input_dummy"
+      },
+      {
+        "type": "input_statement",
+        "name": "STACK"
+      }
+    ],
+    "colour": 60,
+    "tooltip": "",
+    "helpUrl": ""
+  },
+  {
+    "type": "swarmy_io_sensor_read",
+    "message0": "%1",
+    "args0": [
+      {
+        "type": "field_dropdown",
+        "name": "SENSOR",
+        "options": [
+          [
+            "Is there any sound?",
+            "SOUND"
+          ],
+          [
+            "Is there anything moving nearby?",
+            "MOVEMENT"
+          ],
+          [
+            "Is there an obstacle?",
+            "OBSTACLE"
+          ],
+          [
+            "Are we on fire?!",
+            "FIRE"
+          ],
+          [
+            "Is there light?",
+            "LIGHT"
+          ],
+          [
+            "Is there darkness",
+            "DARKNESS"
+          ]
+        ]
+      }
+    ],
+    "output": null,
+    "colour": 60,
+    "tooltip": "",
+    "helpUrl": ""
   }
 ]

@@ -19,6 +19,8 @@
         <block type="swarmy_io_move"/>
         <block type="swarmy_io_turn"/>
         <block type="swarmy_io_stop"/>
+        <block type="swarmy_io_sensor_event"/>
+        <block type="swarmy_io_sensor_read"/>
     </category>
     <category name="Events">
         <block type="swarmy_events_wait"></block>

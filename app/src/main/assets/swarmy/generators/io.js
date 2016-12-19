@@ -82,3 +82,57 @@ Blockly.Arduino.swarmy_io_move_all = function() {
 Blockly.Arduino.swarmy_io_move = Blockly.Arduino.swarmy_io_move_all;
 Blockly.Arduino.swarmy_io_turn = Blockly.Arduino.swarmy_io_move_all;
 Blockly.Arduino.swarmy_io_stop = Blockly.Arduino.swarmy_io_move_all;
+
+Blockly.Arduino['swarmy_io_sensor_event'] = function() {
+  var dropdown_action = this.getFieldValue('ACTION');
+  var stack = Blockly.Arduino.statementToCode(this, 'STACK');
+  switch(dropdown_action) {
+    case "SOUND":
+    case "MOVEMENT":
+    case "OBSTACLE":
+    case "FIRE":
+    case "LIGHT":
+    case "DARKNESS":
+      Blockly.Arduino.setups_["setup_sensor"] = "pinMode(A1, INPUT_PULLUP);\n"+
+          "  pinMode(A0, OUTPUT);\n"+
+          "  pinMode(A2, OUTPUT);\n"+
+          "  digitalWrite(A0, LOW);\n"+
+          "  digitalWrite(A2, HIGH);\n"+
+          "  attachInterrupt(A1, sensorEventISR, CHANGE);\n";
+      Blockly.Arduino.setups_["setup_sensor_no_int"] = undefined;
+      Blockly.Arduino.definitions_['define_sensor'] = "Timer sensorTimer(50, sensorEventCallback, true);\n"+
+      "void sensorEventISR() {\n"+
+      "  sensorTimer.startFromISR();\n"+
+      "  detachInterrupt(A1);\n"+
+      "}\n"+
+      "void sensorEventCallback() {\n"+
+      "  " + stack + "\n"+
+      "  attachInterrupt(A1, sensorEventISR, CHANGE);\n"+
+      "}\n";
+    break;
+    default:
+  } 
+  return null;
+};
+
+Blockly.Arduino['swarmy_io_sensor_read'] = function() {
+  var dropdown_sensor = this.getFieldValue('SENSOR');
+  if (!Blockly.Arduino.setups_["setup_sensor"]) {
+    Blockly.Arduino.setups_["setup_sensor_no_int"] = "pinMode(A1, INPUT_PULLUP);\n"+
+        "  pinMode(A0, OUTPUT);\n"+
+        "  pinMode(A2, OUTPUT);\n"+
+        "  digitalWrite(A0, LOW);\n"+
+        "  digitalWrite(A2, HIGH);\n";
+  }
+  switch(dropdown_sensor) {
+    case "SOUND":
+    case "MOVEMENT":
+    case "OBSTACLE":
+    case "FIRE":
+    case "LIGHT":
+    case "DARKNESS":
+      return ['digitalRead(A1)', Blockly.Arduino.ORDER_NONE]
+    break;
+    default:
+  }
+};
