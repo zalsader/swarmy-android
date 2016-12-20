@@ -17,8 +17,20 @@
     <category name="Swarmy" colour="60">
         <block type="swarmy_io_led"/>
         <block type="swarmy_io_move_all"/>
-        <block type="swarmy_io_move"/>
-        <block type="swarmy_io_turn"/>
+        <block type="swarmy_io_move_steps">
+            <value name="STEPS">
+                <shadow type="math_number">
+                    <field name="NUM">1</field>
+                </shadow>
+            </value>
+        </block>
+        <block type="swarmy_io_turn_steps">
+            <value name="STEPS">
+                <shadow type="math_number">
+                    <field name="NUM">1</field>
+                </shadow>
+            </value>
+        </block>
         <block type="swarmy_io_stop"/>
         <block type="swarmy_io_sensor_event"/>
         <block type="swarmy_io_sensor_read"/>
@@ -101,6 +113,11 @@
             </value>
         </block>
         <block type="controls_flow_statements"></block>
+    </category>
+    <category name="Parallel" colour="290">
+        <block type="swarmy_parallelism_in_turn"></block>
+        <block type="swarmy_parallelism_my_number"></block>
+        <block type="swarmy_parallelism_swarm_size"></block>
     </category>
     <category name="Math" colour="230">
         <block type="math_number"></block>

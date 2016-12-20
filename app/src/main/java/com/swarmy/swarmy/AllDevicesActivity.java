@@ -34,7 +34,8 @@ public class AllDevicesActivity extends AbstractBlocklyActivity {
 
     private static final List<String> ARDUINO_GENERATORS = Arrays.asList(
             "swarmy/generators/io.js",
-            "swarmy/generators/events.js"
+            "swarmy/generators/events.js",
+            "swarmy/generators/parallelism.js"
     );
 
     private final Handler mHandler = new Handler();
@@ -47,9 +48,12 @@ public class AllDevicesActivity extends AbstractBlocklyActivity {
                     Log.i(TAG, "generatedCode:\n" + generatedCode);
                     Toast.makeText(getApplicationContext(), generatedCode,
                             Toast.LENGTH_LONG).show();
-                    for (final ParticleDevice device : devices) {
+                    for (int i = 0; i < devices.size(); i++) {
+                        final ParticleDevice device = devices.get(i);
                         Map<String, String> valuesMap = new HashMap<>();
                         valuesMap.put("myName", device.getName());
+                        valuesMap.put("myNumber", ""+i);
+                        valuesMap.put("swarmSize", ""+devices.size());
                         StrSubstitutor sub = new StrSubstitutor(valuesMap);
                         final String resolvedCode = sub.replace(generatedCode);
                         Async.executeAsync(device, new Async.ApiWork<ParticleDevice, Boolean>() {
@@ -120,7 +124,8 @@ public class AllDevicesActivity extends AbstractBlocklyActivity {
                 "default/colour_blocks.json",
                 "arduino/base.json",
                 "swarmy/io.json",
-                "swarmy/events.json"
+                "swarmy/events.json",
+                "swarmy/parallelism.json"
         );
     }
 
